@@ -3,7 +3,6 @@
 /* eslint-disable react/button-has-type */
 
 import { Outlet, ReactLocation, Router } from '@tanstack/react-location';
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import routes from './pages/routes';
