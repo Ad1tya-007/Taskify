@@ -1,7 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-fallthrough */
-/* eslint-disable react/button-has-type */
-
 import { Outlet, ReactLocation, Router } from '@tanstack/react-location';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
