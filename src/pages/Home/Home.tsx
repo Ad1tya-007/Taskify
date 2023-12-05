@@ -1,3 +1,4 @@
+import Notes from './Notes';
 import Sidebar from './Sidebar';
 
 function Home() {
@@ -7,7 +8,7 @@ function Home() {
         <Sidebar />
       </div>
       <div className="flex-1">
-        <div>Notes Content Here</div>
+        <Notes />
       </div>
     </div>
   );
