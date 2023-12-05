@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 
 function App() {
   return (
-    <div className="min-h-screen px-8 py-12">
+    <div className="min-h-screen overflow-hidden bg-gray-100 w-full fixed">
       <Suspense fallback={null}>
         <Outlet />
       </Suspense>
