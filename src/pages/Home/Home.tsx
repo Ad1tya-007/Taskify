@@ -3,7 +3,7 @@ import Sidebar from './Sidebar';
 
 function Home() {
   return (
-    <div className="h-screen border px-5 py-10 flex">
+    <div className="h-screen bg-gray-100 px-5 py-10 flex">
       <div className="w-1/5">
         <Sidebar />
       </div>

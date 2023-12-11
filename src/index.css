@@ -1,3 +1,66 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* text cursor color change */
+
+.custom-input::-webkit-input-placeholder {
+  color: gray;
+}
+
+.custom-input::-moz-placeholder {
+  color: gray;
+}
+
+.custom-input:-ms-input-placeholder {
+  color: gray;
+}
+
+.custom-input::-ms-input-placeholder {
+  color: gray;
+}
+
+.custom-input::placeholder {
+  color: gray;
+}
+
+.custom-input:focus::-webkit-input-placeholder {
+  color: gray;
+  opacity: 1;
+}
+
+.custom-input:focus::-moz-placeholder {
+  color: gray;
+  opacity: 1;
+}
+
+.custom-input:focus:-ms-input-placeholder {
+  color: gray;
+  opacity: 1;
+}
+
+.custom-input:focus::-ms-input-placeholder {
+  color: gray;
+  opacity: 1;
+}
+
+.custom-input:focus::placeholder {
+  color: gray;
+  opacity: 1;
+}
+
+/* write a new task bar */
+
+.animated-square {
+  transition: transform 0.2s ease-in-out;
+}
+
+.input-slid-in {
+  transition: margin-left 0.2s ease-in-out;
+  margin-left: -20px;
+}
+
+.input-slid-out {
+  transition: margin-left 0.2s ease-in-out;
+  margin-left: 0;
+}

@@ -21,19 +21,19 @@ function Sidebar() {
         </div>
         <div className="hover:bg-gray-100 hover:rounded-2xl px-2 py-4 hover:cursor-pointer">
           <div className="flex flex-row items-center space-x-3 ml-2">
-            <CircleInsideCircle color={'red'} />
+            <CircleInsideCircle color={'red'} isTitle={false} />
             <div className="text-md">Gym</div>
           </div>
         </div>
         <div className="hover:bg-gray-100 hover:rounded-2xl px-2 py-4 hover:cursor-pointer">
           <div className="flex flex-row items-center space-x-3 ml-2">
-            <CircleInsideCircle color={'blue'} />
+            <CircleInsideCircle color={'blue'} isTitle={false} />
             <div className="text-md">Class</div>
           </div>
         </div>
         <div className="hover:bg-gray-100 hover:rounded-2xl px-2 py-4 hover:cursor-pointer">
           <div className="flex flex-row items-center space-x-3 ml-2">
-            <CircleInsideCircle color={'green'} />
+            <CircleInsideCircle color={'green'} isTitle={false} />
             <div className="text-md">Test</div>
           </div>
         </div>
