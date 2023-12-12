@@ -2,16 +2,12 @@ import React, { Fragment, useState } from 'react';
 import CircleInsideCircle from './CircleInsideCircle';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
+import Task from './Task';
 
 function Notes() {
   const [text, setText] = useState('');
   const [isClicked, setIsClicked] = useState(false);
   const [isDropdownClicked, setIsDropdownClicked] = useState(false);
-  const [squareClicked, setSquareClicked] = useState(false);
-
-  const handleSquareClick = () => {
-    setSquareClicked(!squareClicked);
-  };
 
   const handleTextChange = (e: string) => {
     setText(e);
@@ -52,6 +48,35 @@ function Notes() {
     },
   ];
 
+  const tasks = [
+    {
+      id: 1,
+      note: 'Homework',
+      color: 'red',
+    },
+    {
+      id: 2,
+      note: 'Gym',
+      color: 'green',
+    },
+    {
+      id: 3,
+      note: 'Advent of Code',
+      color: 'blue',
+    },
+    {
+      id: 4,
+      note: 'Finals Preparation',
+      color: 'purple',
+    },
+    {
+      id: 5,
+      note: 'Project Deadline',
+      color: 'orange',
+    },
+    // Add more tasks as needed
+  ];
+
   return (
     <div className="h-full px-20 py-10 flex flex-col">
       <div className="flex flex-row space-x-2 items-center">
@@ -68,10 +93,7 @@ function Notes() {
           <div className="flex flex-row items-center justify-between py-1 w-full h-full">
             <div className="flex flex-row space-x-3 flex-1 items-center">
               {isClicked && (
-                <div
-                  className="bg-gray-300 rounded-sm cursor-pointer h-5 w-5 animate-square"
-                  onClick={handleSquareClick}
-                />
+                <div className="bg-gray-300 rounded-sm cursor-pointer h-5 w-5 animate-square" />
               )}
               <input
                 type="text"
@@ -143,39 +165,11 @@ function Notes() {
         </div>
       </div>
 
-      <div className="mt-3">
-        <div className="flex items-center justify-center w-full h-full">
-          <div
-            className={`${
-              squareClicked ? 'bg-opacity task ' : 'bg-white'
-            }  shadow-xl rounded-xl mt-5  w-[70%] px-8 py-4 flex flex-row items-center justify-between`}
-          >
-            <div>
-              <div className="flex flex-row space-x-3 items-center ">
-                <div
-                  className={`${
-                    squareClicked
-                      ? 'bg-green-300 hover:bg-gray-300'
-                      : 'bg-gray-300 hover:bg-green-300'
-                  } rounded-sm cursor-pointer h-5 w-5`}
-                  onClick={handleSquareClick}
-                />
-
-                <div className="">Notes here</div>
-              </div>
-            </div>
-            <div className="flex flex-row items-center space-x-3">
-              <div className="bg-gray-100 px-2 py-1 rounded-xl text-gray-500 hover:bg-gray-400 hover:text-gray-100">
-                15 March
-              </div>
-              <CircleInsideCircle color={'red'} isTitle={false} />
-            </div>
-          </div>
-          {squareClicked && (
-            <div className="absolute h-0.5 w-[45%] bg-gray-400 transform -translate-y-0.5 animate-strikethrough mt-6" />
-          )}
+      {tasks?.map((task) => (
+        <div className="mt-3 " key={task.id}>
+          <Task note={task.note} color={task.color} />
         </div>
-      </div>
+      ))}
     </div>
   );
 }

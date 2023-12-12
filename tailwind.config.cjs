@@ -7,8 +7,21 @@ export default {
   plugins: [],
   safelist: [
     {
-      pattern: /bg-(red|green|blue)-(100|200|300|400|500|600|700|800|900)/,
-      variants: ['lg', 'hover', 'focus', 'lg:hover'],
+      pattern: /bg-(\w+)-(\d{2}|\d{3})/,
+      variants: [
+        'sm',
+        'md',
+        'lg',
+        'hover',
+        'focus',
+        'sm:hover',
+        'md:hover',
+        'lg:hover',
+        'sm:focus',
+        'md:focus',
+        'lg:focus',
+        'lg:hover:focus',
+      ],
     },
   ],
 };
