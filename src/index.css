@@ -64,3 +64,34 @@
   transition: margin-left 0.2s ease-in-out;
   margin-left: 0;
 }
+
+.task-bar {
+  transition: background-color 0.3s ease-in-out;
+}
+
+.task {
+  transition: background-color 0.4s ease-in-out;
+}
+
+@-webkit-keyframes strikethrough {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes strikethrough {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 45%;
+  }
+}
+
+.animate-strikethrough {
+  -webkit-animation: strikethrough 0.5s ease-out;
+  animation: strikethrough 0.5s ease-out;
+}
