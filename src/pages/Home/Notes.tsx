@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import CircleInsideCircle from './CircleInsideCircle';
+import HomeIcon from '../../assets/icons/home.png';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import Task from './Task';
@@ -80,7 +80,7 @@ function Notes() {
   return (
     <div className="h-full px-20 py-10 flex flex-col">
       <div className="flex flex-row space-x-2 items-center">
-        <CircleInsideCircle color={'red'} isTitle={true} />
+        <img src={HomeIcon} className="h-7 w-7" />
         <div className="text-4xl py-5">Home</div>
       </div>
 
