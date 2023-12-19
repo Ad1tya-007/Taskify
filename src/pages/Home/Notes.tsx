@@ -80,7 +80,7 @@ function Notes() {
   return (
     <div className="h-full px-20 py-10 flex flex-col">
       <div className="flex flex-row space-x-2 items-center">
-        <img src={HomeIcon} className="h-7 w-7" />
+        <img src={HomeIcon} className="h-7 w-" />
         <div className="text-4xl py-5">Home</div>
       </div>
 
