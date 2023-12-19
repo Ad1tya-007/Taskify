@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import CircleInsideCircle from './CircleInsideCircle';
+import DatePicker from './DatePicker';
 
 interface TaskProps {
   note: string;
@@ -36,10 +37,9 @@ function Task({ note, color }: TaskProps) {
             </div>
           </div>
           <div className="flex flex-row items-center space-x-3">
-            <input
-              type="date"
-              className="px-2 py-1 bg-gray-100  rounded-xl text-gray-500 hover:bg-gray-400 hover:text-gray-100"
-            />
+            <div className="flex items-center">
+              <DatePicker />
+            </div>
             <CircleInsideCircle color={color} isTitle={false} />
           </div>
         </div>

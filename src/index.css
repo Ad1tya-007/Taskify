@@ -20,6 +20,14 @@
   color: gray;
 }
 
+.custom-input::-webkit-input-placeholder {
+  color: gray;
+}
+
+.custom-input::-moz-placeholder {
+  color: gray;
+}
+
 .custom-input::placeholder {
   color: gray;
 }
@@ -94,4 +102,12 @@
 .animate-strikethrough {
   -webkit-animation: strikethrough 0.5s ease-out;
   animation: strikethrough 0.5s ease-out;
+}
+
+input[type='date']:required:invalid::-webkit-datetime-edit {
+  color: transparent;
+  display: none;
+}
+input[type='date']:focus::-webkit-datetime-edit {
+  display: none;
 }
