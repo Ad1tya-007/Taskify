@@ -5,3 +5,9 @@ export interface ITask {
   completed: boolean | false;
   type: string | 'ALL';
 }
+
+export interface IList {
+  id: number | null;
+  name: string | null;
+  color: string;
+}

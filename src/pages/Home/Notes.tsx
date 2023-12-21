@@ -3,22 +3,25 @@ import HomeIcon from '../../assets/icons/home.png';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import Task from './Task';
-import { ITask } from '../../utils';
+import { IList, ITask } from '../../utils';
 import { setTasks } from '../../store/tasksSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setLists } from '../../store/listSlice';
 
 function Notes() {
   const [text, setText] = useState('');
   const [isClicked, setIsClicked] = useState(false);
   const [isDropdownClicked, setIsDropdownClicked] = useState(false);
-  // const [tasks, setTasks] = useState<ITask[]>([]);
 
   const dispatch = useAppDispatch();
   const tasks = useAppSelector((state) => state.task);
+  const lists = useAppSelector((state) => state.list);
 
   const handleTextChange = (e: string) => {
     setText(e);
   };
+
+  console.log(lists);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (/^[a-zA-Z0-9]$/.test(event.key)) {
@@ -36,6 +39,10 @@ function Notes() {
     setIsDropdownClicked(false);
   };
 
+  const handleDropdownClicked = () => {
+    setIsDropdownClicked(!isDropdownClicked);
+  };
+
   useEffect(() => {
     const storedTasks = localStorage.getItem('tasks');
     if (storedTasks) {
@@ -43,29 +50,24 @@ function Notes() {
         const parsedTasks: ITask[] = JSON.parse(storedTasks);
         dispatch(setTasks(parsedTasks));
       } catch (error) {
+        dispatch(setLists([]));
         console.error('Error parsing stored tasks:', error);
       }
     }
   }, []);
 
-  const items = [
-    {
-      id: 1,
-      name: 'test1',
-    },
-    {
-      id: 2,
-      name: 'test2',
-    },
-    {
-      id: 3,
-      name: 'test3',
-    },
-    {
-      id: 4,
-      name: 'test4',
-    },
-  ];
+  useEffect(() => {
+    const storedLists = localStorage.getItem('lists');
+    if (storedLists) {
+      try {
+        const parsedLists: IList[] = JSON.parse(storedLists);
+        dispatch(setLists(parsedLists));
+      } catch (error) {
+        dispatch(setLists([]));
+        console.error('Error parsing stored tasks:', error);
+      }
+    }
+  }, []);
 
   return (
     <div className="h-full px-20 py-10 flex flex-col">
@@ -102,11 +104,14 @@ function Notes() {
             <Menu
               as="div"
               className={`${
-                text.length > 0 ? 'inline-block' : 'hidden'
+                text.length > 0 && lists.length != 0 ? 'inline-block' : 'hidden'
               } text-left h-full`}
             >
               <div>
-                <Menu.Button className="inline-flex w-full justify-center px-5 py-1 text-sm h-full font-medium text-gray-500 shadow-sm border border-gray-400">
+                <Menu.Button
+                  className="inline-flex w-full justify-center px-5 py-1 text-sm h-full font-medium text-gray-500 shadow-sm border border-gray-400"
+                  onClick={() => handleDropdownClicked()}
+                >
                   <div>Test</div>
                   {isDropdownClicked ? (
                     <ChevronUpIcon
@@ -133,8 +138,8 @@ function Notes() {
               >
                 <Menu.Items className="absolute z-10 mt-2 max-h-[700px] w-56 origin-top-right overflow-y-auto bg-white text-gray-500 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1" data-cy="locations-dropdown">
-                    {items?.map((item) => (
-                      <Menu.Item key={item.id} data-id={item.id}>
+                    {lists?.map((list) => (
+                      <Menu.Item key={list.id} data-id={list.id}>
                         {({ active }) => (
                           <a
                             href="#"
@@ -142,7 +147,7 @@ function Notes() {
                               active ? 'bg-gray-100 text-gray-900' : ''
                             }`}
                           >
-                            {item.name}
+                            {list.name}
                           </a>
                         )}
                       </Menu.Item>
