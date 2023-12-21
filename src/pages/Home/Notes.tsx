@@ -1,13 +1,20 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import HomeIcon from '../../assets/icons/home.png';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import Task from './Task';
+import { ITask } from '../../utils';
+import { setTasks } from '../../store/tasksSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 function Notes() {
   const [text, setText] = useState('');
   const [isClicked, setIsClicked] = useState(false);
   const [isDropdownClicked, setIsDropdownClicked] = useState(false);
+  // const [tasks, setTasks] = useState<ITask[]>([]);
+
+  const dispatch = useAppDispatch();
+  const tasks = useAppSelector((state) => state.task);
 
   const handleTextChange = (e: string) => {
     setText(e);
@@ -29,6 +36,18 @@ function Notes() {
     setIsDropdownClicked(false);
   };
 
+  useEffect(() => {
+    const storedTasks = localStorage.getItem('tasks');
+    if (storedTasks) {
+      try {
+        const parsedTasks: ITask[] = JSON.parse(storedTasks);
+        dispatch(setTasks(parsedTasks));
+      } catch (error) {
+        console.error('Error parsing stored tasks:', error);
+      }
+    }
+  }, []);
+
   const items = [
     {
       id: 1,
@@ -46,35 +65,6 @@ function Notes() {
       id: 4,
       name: 'test4',
     },
-  ];
-
-  const tasks = [
-    {
-      id: 1,
-      note: 'Homework',
-      color: 'red',
-    },
-    {
-      id: 2,
-      note: 'Gym',
-      color: 'green',
-    },
-    {
-      id: 3,
-      note: 'Advent of Code',
-      color: 'blue',
-    },
-    {
-      id: 4,
-      note: 'Finals Preparation',
-      color: 'purple',
-    },
-    {
-      id: 5,
-      note: 'Project Deadline',
-      color: 'orange',
-    },
-    // Add more tasks as needed
   ];
 
   return (
@@ -167,7 +157,7 @@ function Notes() {
 
       {tasks?.map((task) => (
         <div className="mt-3 " key={task.id}>
-          <Task note={task.note} color={task.color} />
+          <Task note={task.name} color={'red'} />
         </div>
       ))}
     </div>

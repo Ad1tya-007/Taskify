@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import CircleInsideCircle from './CircleInsideCircle';
 
 interface TaskProps {
-  note: string;
+  note: string | null;
   color: string;
 }
 
-function Task({ note, color }: TaskProps) {
+function Task({ note, color = 'red' }: TaskProps) {
   const [squareClicked, setSquareClicked] = useState(false);
 
   const handleSquareClick = () => {

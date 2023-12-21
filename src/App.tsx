@@ -3,6 +3,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import routes from './pages/routes';
 import { Suspense } from 'react';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 function App() {
   return (
@@ -30,8 +32,10 @@ const wrappedApp = () => {
   return (
     <Router location={reactLocation} routes={routes}>
       <QueryClientProvider client={queryClient}>
-        <App />
-        <ReactQueryDevtools position="bottom-right" />
+        <Provider store={store}>
+          <App />
+          <ReactQueryDevtools position="bottom-right" />
+        </Provider>
       </QueryClientProvider>
     </Router>
   );
