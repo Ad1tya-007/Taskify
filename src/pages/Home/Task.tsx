@@ -1,17 +1,39 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CircleInsideCircle from './CircleInsideCircle';
+import { useAppSelector } from '../../hooks';
 
 interface TaskProps {
-  note: string;
-  color: string;
+  note: string | null;
+  type: string;
 }
 
-function Task({ note, color }: TaskProps) {
+function Task({ note, type }: TaskProps) {
   const [squareClicked, setSquareClicked] = useState(false);
+  const [color, setColor] = useState<string>('');
+
+  const lists = useAppSelector((state) => state.list);
 
   const handleSquareClick = () => {
     setSquareClicked(!squareClicked);
   };
+
+  const renderIcon = (color: string) => {
+    switch (color) {
+      case 'ALL':
+        return;
+      case 'TODAY':
+        return;
+      default:
+        return <CircleInsideCircle color={color} isTitle={false} />;
+    }
+  };
+
+  useEffect(() => {
+    const selectedList = lists.find((item) => item.name === type);
+    if (selectedList?.color) {
+      setColor(selectedList?.color);
+    }
+  }, []);
 
   return (
     <div>
@@ -40,7 +62,7 @@ function Task({ note, color }: TaskProps) {
               type="date"
               className="px-2 py-1 bg-gray-100  rounded-xl text-gray-500 hover:bg-gray-400 hover:text-gray-100"
             />
-            <CircleInsideCircle color={color} isTitle={false} />
+            {renderIcon(color)}
           </div>
         </div>
         {squareClicked && (
