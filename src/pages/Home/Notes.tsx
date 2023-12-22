@@ -21,8 +21,6 @@ function Notes() {
     setText(e);
   };
 
-  console.log(lists);
-
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (/^[a-zA-Z0-9]$/.test(event.key)) {
       event.preventDefault();
@@ -50,7 +48,7 @@ function Notes() {
         const parsedTasks: ITask[] = JSON.parse(storedTasks);
         dispatch(setTasks(parsedTasks));
       } catch (error) {
-        dispatch(setLists([]));
+        dispatch(setTasks([]));
         console.error('Error parsing stored tasks:', error);
       }
     }
@@ -162,7 +160,7 @@ function Notes() {
 
       {tasks?.map((task) => (
         <div className="mt-3 " key={task.id}>
-          <Task note={task.name} color={'red'} />
+          <Task note={task.name} type={task.type} />
         </div>
       ))}
     </div>
