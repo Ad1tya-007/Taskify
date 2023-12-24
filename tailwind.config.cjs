@@ -7,7 +7,7 @@ export default {
   plugins: [],
   safelist: [
     {
-      pattern: /bg-(\w+)-(\d{2}|\d{3})/,
+      pattern: /(bg-(\w+)-(\d{3}))|(bg-\[#[a-fA-F0-9]{6}\])/,
       variants: [
         'sm',
         'md',
