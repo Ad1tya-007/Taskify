@@ -7,7 +7,7 @@ export interface ITask {
 }
 
 export interface IList {
-  id: number | null;
+  id: string | null;
   name: string | null;
   color: string;
 }

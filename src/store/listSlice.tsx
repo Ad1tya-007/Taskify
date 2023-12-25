@@ -10,9 +10,12 @@ export const listsSlice = createSlice({
     setLists: (state, action: PayloadAction<IList[]>) => {
       return action.payload;
     },
+    addToList: (state, action: PayloadAction<IList>) => {
+      state.push(action.payload);
+    },
   },
 });
 
-export const { setLists } = listsSlice.actions;
+export const { setLists, addToList } = listsSlice.actions;
 
 export default listsSlice.reducer;

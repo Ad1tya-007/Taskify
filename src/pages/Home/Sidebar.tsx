@@ -1,15 +1,28 @@
 import HomeIcon from '../../assets/icons/home.png';
 import TodayIcon from '../../assets/icons/date.png';
-import CircleInsideCircle from './CircleInsideCircle';
-import { useAppSelector } from '../../hooks';
+import Ring from './Ring';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
-import { useState } from 'react';
-import ColorSelect from './ColorSelect';
+import { Fragment, useState } from 'react';
+import { Menu, Transition } from '@headlessui/react';
+import { ColorResult, GithubPicker } from 'react-color';
+import uuid from 'react-uuid';
+import { IList } from '../../utils';
+import { addToList } from '../../store/listSlice';
 
 function Sidebar() {
+  // eslint-disable-next-line prefer-const
   const lists = useAppSelector((state) => state.list);
+  const dispatch = useAppDispatch();
+
   const [isNewList, setIsNewList] = useState<boolean>(false);
   const [text, setText] = useState('');
+
+  const [ring, setRing] = useState('black');
+
+  const handleColorChange = (color: ColorResult) => {
+    setRing(color?.hex);
+  };
 
   const handleTextChange = (e: string) => {
     setText(e);
@@ -22,6 +35,18 @@ function Sidebar() {
         return prev + event.key;
       });
     }
+    if (event.key == 'Enter') {
+      const newObject: IList = {
+        id: uuid(),
+        name: text.toUpperCase(),
+        color: ring,
+      };
+      dispatch(addToList(newObject));
+      const updatedList = [...lists, newObject];
+      localStorage.setItem('lists', JSON.stringify(updatedList));
+      setText('');
+      setRing('black');
+    }
   };
 
   const renderIcon = (color: string) => {
@@ -31,7 +56,7 @@ function Sidebar() {
       case 'TODAY':
         return <img src={TodayIcon} className="h-5 w-5" />;
       default:
-        return <CircleInsideCircle color={color} isTitle={false} />;
+        return <Ring color={color} isTitle={false} />;
     }
   };
 
@@ -52,9 +77,32 @@ function Sidebar() {
           </div>
         ))}
         {isNewList && (
-          <div className="hover:rounded-2xl px-2 py-4 hover:cursor-pointer">
+          <div className="px-2 py-4">
             <div className="flex flex-row items-center space-x-3 ml-2">
-              <ColorSelect />
+              <div>
+                <Menu as="div">
+                  <div>
+                    <Menu.Button className="inline-flex w-full justify-center h-full ">
+                      <Ring color={ring} isTitle={false} />
+                    </Menu.Button>
+                  </div>
+
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute z-10 mt-1 w-0 bg-white shadow-lg focus:outline-none">
+                      <GithubPicker onChange={handleColorChange} />
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+              </div>
+
               <input
                 className="outline-none "
                 placeholder="Enter name of list"

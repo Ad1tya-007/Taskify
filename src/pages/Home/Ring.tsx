@@ -1,12 +1,9 @@
-interface CircleInsideCircleProps {
+interface RingProps {
   color: string;
   isTitle: boolean;
 }
 
-function CircleInsideCircle({
-  color,
-  isTitle = false,
-}: CircleInsideCircleProps) {
+function Ring({ color, isTitle = false }: RingProps) {
   const sizeClass = isTitle ? 'h-6 w-6' : 'h-4 w-4';
   const subClass = isTitle ? 'h-4 w-4' : 'h-3 w-3';
 
@@ -22,4 +19,4 @@ function CircleInsideCircle({
   );
 }
 
-export default CircleInsideCircle;
+export default Ring;
