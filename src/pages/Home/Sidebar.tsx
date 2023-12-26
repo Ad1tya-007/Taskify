@@ -7,17 +7,17 @@ import { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { ColorResult, GithubPicker } from 'react-color';
 import uuid from 'react-uuid';
-import { IList } from '../../utils';
-import { addToList } from '../../store/listSlice';
+import { setLists } from '../../store/listSlice';
 
 function Sidebar() {
-  // eslint-disable-next-line prefer-const
   const lists = useAppSelector((state) => state.list);
+  const chosenList = useAppSelector((state) => state.chosenList);
+  console.log(chosenList);
+
   const dispatch = useAppDispatch();
 
   const [isNewList, setIsNewList] = useState<boolean>(false);
   const [text, setText] = useState('');
-
   const [ring, setRing] = useState('black');
 
   const handleColorChange = (color: ColorResult) => {
@@ -36,16 +36,18 @@ function Sidebar() {
       });
     }
     if (event.key == 'Enter') {
-      const newObject: IList = {
-        id: uuid(),
-        name: text.toUpperCase(),
-        color: ring,
-      };
-      dispatch(addToList(newObject));
-      const updatedList = [...lists, newObject];
-      localStorage.setItem('lists', JSON.stringify(updatedList));
+      const updatedList = [
+        ...lists,
+        {
+          id: uuid(),
+          name: text.toUpperCase(),
+          color: ring,
+        },
+      ];
+      dispatch(setLists(updatedList));
       setText('');
       setRing('black');
+      setIsNewList(false);
     }
   };
 

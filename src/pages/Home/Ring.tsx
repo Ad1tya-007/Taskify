@@ -9,7 +9,7 @@ function Ring({ color, isTitle = false }: RingProps) {
 
   return (
     <div
-      className={` rounded-full flex items-center justify-center ${sizeClass}`}
+      className={`rounded-full flex items-center justify-center ${sizeClass}`}
       style={{
         backgroundColor: color,
       }}

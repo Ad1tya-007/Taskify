@@ -1,19 +1,16 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import HomeIcon from '../../assets/icons/home.png';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import Task from './Task';
-import { IList, ITask } from '../../utils';
-import { setTasks } from '../../store/tasksSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setLists } from '../../store/listSlice';
+
+import { useAppSelector } from '../../hooks';
 
 function Notes() {
   const [text, setText] = useState('');
   const [isClicked, setIsClicked] = useState(false);
   const [isDropdownClicked, setIsDropdownClicked] = useState(false);
 
-  const dispatch = useAppDispatch();
   const tasks = useAppSelector((state) => state.task);
   const lists = useAppSelector((state) => state.list);
 
@@ -40,32 +37,6 @@ function Notes() {
   const handleDropdownClicked = () => {
     setIsDropdownClicked(!isDropdownClicked);
   };
-
-  useEffect(() => {
-    const storedTasks = localStorage.getItem('tasks');
-    if (storedTasks) {
-      try {
-        const parsedTasks: ITask[] = JSON.parse(storedTasks);
-        dispatch(setTasks(parsedTasks));
-      } catch (error) {
-        dispatch(setTasks([]));
-        console.error('Error parsing stored tasks:', error);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    const storedLists = localStorage.getItem('lists');
-    if (storedLists) {
-      try {
-        const parsedLists: IList[] = JSON.parse(storedLists);
-        dispatch(setLists(parsedLists));
-      } catch (error) {
-        dispatch(setLists([]));
-        console.error('Error parsing stored tasks:', error);
-      }
-    }
-  }, []);
 
   return (
     <div className="h-full px-20 py-10 flex flex-col">
