@@ -18,7 +18,7 @@ function Home() {
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, [lists]);
+  }, [lists, tasks]);
 
   return (
     <div className="h-screen bg-gray-100 px-5 py-10 flex">

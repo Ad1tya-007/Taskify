@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IList } from '../utils';
 
 const getInitialState = (): IList[] =>
-  JSON.parse(localStorage.getItem('lists') ?? '');
+  JSON.parse(localStorage.getItem('lists') ?? '[]');
 
 export const listsSlice = createSlice({
   name: 'lists',

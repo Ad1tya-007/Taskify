@@ -8,6 +8,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { ColorResult, GithubPicker } from 'react-color';
 import uuid from 'react-uuid';
 import { setLists } from '../../store/listSlice';
+import { setChosenList } from '../../store/chosenListSlice';
 
 function Sidebar() {
   const lists = useAppSelector((state) => state.list);
@@ -51,29 +52,36 @@ function Sidebar() {
     }
   };
 
-  const renderIcon = (color: string) => {
-    switch (color) {
-      case 'ALL':
-        return <img src={HomeIcon} className="h-5 w-5" />;
-      case 'TODAY':
-        return <img src={TodayIcon} className="h-5 w-5" />;
-      default:
-        return <Ring color={color} isTitle={false} />;
-    }
-  };
-
   const handleNewList = () => [setIsNewList(!isNewList)];
 
   return (
     <div className="bg-white px-10 py-10 rounded-3xl shadow-2xl h-full">
       <div className="flex flex-col space-y-2">
+        <div className="hover:bg-gray-100 hover:rounded-2xl px-2 py-4 hover:cursor-pointer">
+          <div
+            className="flex flex-row items-center space-x-3 ml-2"
+            onClick={() => dispatch(setChosenList('Home'))}
+          >
+            <img src={HomeIcon} className="h-5 w-5" />
+            <div className="text-md">Home</div>
+          </div>
+        </div>
+        <div className="hover:bg-gray-100 hover:rounded-2xl px-2 py-4 hover:cursor-pointer">
+          <div
+            className="flex flex-row items-center space-x-3 ml-2"
+            onClick={() => dispatch(setChosenList('Today'))}
+          >
+            <img src={TodayIcon} className="h-5 w-5" />
+            <div className="text-md">Today</div>
+          </div>
+        </div>
         {lists?.map((list) => (
           <div
             key={list.id}
             className="hover:bg-gray-100 hover:rounded-2xl px-2 py-4 hover:cursor-pointer"
           >
             <div className="flex flex-row items-center space-x-3 ml-2">
-              {renderIcon(list.color)}
+              <Ring color={list.color} isTitle={false} />
               <div className="text-md">{list.name}</div>
             </div>
           </div>
