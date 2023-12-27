@@ -41,7 +41,7 @@ function Notes() {
       ];
       dispatch(setTasks(updatedTasks));
       setText('');
-      setType('');
+      setType('Home');
     }
   };
 
@@ -69,14 +69,17 @@ function Notes() {
     }
   };
 
-  let filteredTasks;
-  if (type == 'Home') {
-    filteredTasks = tasks;
-  } else if (type == 'Today') {
-    filteredTasks = tasks;
-  } else {
-    filteredTasks = tasks.filter((task) => task.type == chosenList);
-  }
+  const getInitalState = (type: string) => {
+    if (type == 'Home') {
+      return tasks;
+    } else if (type == 'Today') {
+      return tasks;
+    } else {
+      return tasks.filter((task) => task.type == type);
+    }
+  };
+
+  const filteredTasks = getInitalState(chosenList);
 
   return (
     <div className="h-full px-20 py-10 flex flex-col">
@@ -121,7 +124,7 @@ function Notes() {
                   className="inline-flex w-full justify-center px-5 py-1 text-sm h-full font-medium text-gray-500 shadow-sm border border-gray-400"
                   onClick={() => handleDropdownClicked()}
                 >
-                  <div>Test</div>
+                  <div>{type}</div>
                   {isDropdownClicked ? (
                     <ChevronUpIcon
                       className="-mr-1 ml-2 h-5 w-5"
@@ -155,6 +158,7 @@ function Notes() {
                             className={`block px-4 py-2 text-sm ${
                               active ? 'bg-gray-100 text-gray-900' : ''
                             }`}
+                            onClick={() => setType(list.name)}
                           >
                             {list.name}
                           </a>
