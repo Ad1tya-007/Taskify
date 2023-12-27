@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Ring from './Ring';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setTasks } from '../../store/tasksSlice';
 
 interface TaskProps {
   note: string | null;
@@ -12,9 +13,15 @@ function Task({ note, type }: TaskProps) {
   const [color, setColor] = useState<string>('');
 
   const lists = useAppSelector((state) => state.list);
+  const tasks = useAppSelector((state) => state.task);
+  const dispatch = useAppDispatch();
 
   const handleSquareClick = () => {
-    setSquareClicked(!squareClicked);
+    setSquareClicked(true);
+    setTimeout(() => {
+      const newTasks = tasks.filter((task) => task.name !== note);
+      dispatch(setTasks(newTasks));
+    }, 700);
   };
 
   const renderIcon = (color: string) => {
