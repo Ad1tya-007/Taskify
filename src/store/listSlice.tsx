@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IList } from '../utils';
 
-const initialState: IList[] = [];
+const getInitialState = (): IList[] =>
+  JSON.parse(localStorage.getItem('lists') ?? '[]');
 
 export const listsSlice = createSlice({
   name: 'lists',
-  initialState,
+  initialState: getInitialState(),
   reducers: {
     setLists: (state, action: PayloadAction<IList[]>) => {
       return action.payload;

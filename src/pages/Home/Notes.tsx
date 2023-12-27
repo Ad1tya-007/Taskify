@@ -1,21 +1,21 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import HomeIcon from '../../assets/icons/home.png';
+import TodayIcon from '../../assets/icons/date.png';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import Task from './Task';
-import { IList, ITask } from '../../utils';
-import { setTasks } from '../../store/tasksSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setLists } from '../../store/listSlice';
+
+import { useAppSelector } from '../../hooks';
+import Ring from './Ring';
 
 function Notes() {
   const [text, setText] = useState('');
   const [isClicked, setIsClicked] = useState(false);
   const [isDropdownClicked, setIsDropdownClicked] = useState(false);
 
-  const dispatch = useAppDispatch();
   const tasks = useAppSelector((state) => state.task);
   const lists = useAppSelector((state) => state.list);
+  const chosenList = useAppSelector((state) => state.chosenList);
 
   const handleTextChange = (e: string) => {
     setText(e);
@@ -41,37 +41,23 @@ function Notes() {
     setIsDropdownClicked(!isDropdownClicked);
   };
 
-  useEffect(() => {
-    const storedTasks = localStorage.getItem('tasks');
-    if (storedTasks) {
-      try {
-        const parsedTasks: ITask[] = JSON.parse(storedTasks);
-        dispatch(setTasks(parsedTasks));
-      } catch (error) {
-        dispatch(setTasks([]));
-        console.error('Error parsing stored tasks:', error);
-      }
+  const renderIcon = (selectedList: string) => {
+    if (selectedList == 'Home') {
+      return <img src={HomeIcon} className="h-5 w-5" />;
+    } else if (selectedList == 'Today') {
+      return <img src={TodayIcon} className="h-5 w-5" />;
+    } else {
+      return <Ring color={'black'} isTitle={true} />;
     }
-  }, []);
+  };
 
-  useEffect(() => {
-    const storedLists = localStorage.getItem('lists');
-    if (storedLists) {
-      try {
-        const parsedLists: IList[] = JSON.parse(storedLists);
-        dispatch(setLists(parsedLists));
-      } catch (error) {
-        dispatch(setLists([]));
-        console.error('Error parsing stored tasks:', error);
-      }
-    }
-  }, []);
+  const filteredTasks = tasks.filter((task) => task.type == chosenList);
 
   return (
     <div className="h-full px-20 py-10 flex flex-col">
       <div className="flex flex-row space-x-2 items-center">
-        <img src={HomeIcon} className="h-7 w-" />
-        <div className="text-4xl py-5">Home</div>
+        {renderIcon(chosenList)}
+        <div className="text-4xl py-5">{chosenList}</div>
       </div>
 
       <div className="flex items-center justify-center w-full">
@@ -158,11 +144,17 @@ function Notes() {
         </div>
       </div>
 
-      {tasks?.map((task) => (
-        <div className="mt-3 " key={task.id}>
-          <Task note={task.name} type={task.type} />
+      {filteredTasks.length > 0 ? (
+        <div>
+          {filteredTasks?.map((task) => (
+            <div className="mt-3 " key={task.id}>
+              <Task note={task.name} type={task.type} />
+            </div>
+          ))}
         </div>
-      ))}
+      ) : (
+        <div>Nothing here </div>
+      )}
     </div>
   );
 }

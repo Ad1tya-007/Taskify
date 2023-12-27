@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import CircleInsideCircle from './CircleInsideCircle';
+import Ring from './Ring';
 import { useAppSelector } from '../../hooks';
 
 interface TaskProps {
@@ -24,7 +24,7 @@ function Task({ note, type }: TaskProps) {
       case 'TODAY':
         return;
       default:
-        return <CircleInsideCircle color={color} isTitle={false} />;
+        return <Ring color={color} isTitle={false} />;
     }
   };
 
