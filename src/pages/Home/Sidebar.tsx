@@ -2,18 +2,18 @@ import HomeIcon from '../../assets/icons/home.png';
 import TodayIcon from '../../assets/icons/date.png';
 import Ring from './Ring';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
+import { MinusIcon, PlusIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { ColorResult, GithubPicker } from 'react-color';
 import uuid from 'react-uuid';
 import { setLists } from '../../store/listSlice';
 import { setChosenList } from '../../store/chosenListSlice';
+import { IList } from '../../utils';
 
 function Sidebar() {
   const lists = useAppSelector((state) => state.list);
   const chosenList = useAppSelector((state) => state.chosenList);
-  console.log(chosenList);
 
   const dispatch = useAppDispatch();
 
@@ -54,6 +54,15 @@ function Sidebar() {
 
   const handleNewList = () => [setIsNewList(!isNewList)];
 
+  const handleDeleteList = (list: IList) => {
+    const newList = lists.filter((obj) => obj.name != list.name);
+    dispatch(setLists(newList));
+
+    if (chosenList == list.name) {
+      dispatch(setChosenList('Home'));
+    }
+  };
+
   return (
     <div className="bg-white px-10 py-10 rounded-3xl shadow-2xl h-full">
       <div className="flex flex-col space-y-2">
@@ -80,9 +89,18 @@ function Sidebar() {
             key={list.id}
             className="hover:bg-gray-100 hover:rounded-2xl px-2 py-4 hover:cursor-pointer"
           >
-            <div className="flex flex-row items-center space-x-3 ml-2">
-              <Ring color={list.color} isTitle={false} />
-              <div className="text-md">{list.name}</div>
+            <div
+              className="flex flex-row items-center justify-between"
+              onClick={() => dispatch(setChosenList(list.name))}
+            >
+              <div className="flex flex-row items-center space-x-3 ml-2">
+                <Ring color={list.color} isTitle={false} />
+                <div className="text-md">{list.name}</div>
+              </div>
+              <TrashIcon
+                className="h-5 w-5"
+                onClick={() => handleDeleteList(list)}
+              />
             </div>
           </div>
         ))}
