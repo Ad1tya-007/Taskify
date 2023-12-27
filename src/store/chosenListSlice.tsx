@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: string = 'HOME';
+const initialState: string = 'Home';
 
 export const chosenListSlice = createSlice({
   name: 'chosenList',

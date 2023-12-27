@@ -4,18 +4,22 @@ import TodayIcon from '../../assets/icons/date.png';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import Task from './Task';
-
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import Ring from './Ring';
+import uuid from 'react-uuid';
+import { setTasks } from '../../store/tasksSlice';
 
 function Notes() {
-  const [text, setText] = useState('');
+  const [text, setText] = useState<string>('');
   const [isClicked, setIsClicked] = useState(false);
+  const [type, setType] = useState<string>('Home');
   const [isDropdownClicked, setIsDropdownClicked] = useState(false);
 
   const tasks = useAppSelector((state) => state.task);
   const lists = useAppSelector((state) => state.list);
   const chosenList = useAppSelector((state) => state.chosenList);
+
+  const dispatch = useAppDispatch();
 
   const handleTextChange = (e: string) => {
     setText(e);
@@ -25,6 +29,19 @@ function Notes() {
     if (/^[a-zA-Z0-9]$/.test(event.key)) {
       event.preventDefault();
       setText((prev) => prev + event.key);
+    }
+    if (event.key == 'Enter') {
+      const updatedTasks = [
+        ...tasks,
+        {
+          id: uuid(),
+          name: text,
+          type: type,
+        },
+      ];
+      dispatch(setTasks(updatedTasks));
+      setText('');
+      setType('');
     }
   };
 
@@ -43,15 +60,23 @@ function Notes() {
 
   const renderIcon = (selectedList: string) => {
     if (selectedList == 'Home') {
-      return <img src={HomeIcon} className="h-5 w-5" />;
+      return <img src={HomeIcon} className="h-7 w-7" />;
     } else if (selectedList == 'Today') {
-      return <img src={TodayIcon} className="h-5 w-5" />;
+      return <img src={TodayIcon} className="h-7 w-7" />;
     } else {
-      return <Ring color={'black'} isTitle={true} />;
+      const selected = lists.find((list) => list.name == selectedList);
+      return <Ring color={selected!.color} isTitle={true} />;
     }
   };
 
-  const filteredTasks = tasks.filter((task) => task.type == chosenList);
+  let filteredTasks;
+  if (type == 'Home') {
+    filteredTasks = tasks;
+  } else if (type == 'Today') {
+    filteredTasks = tasks;
+  } else {
+    filteredTasks = tasks.filter((task) => task.type == chosenList);
+  }
 
   return (
     <div className="h-full px-20 py-10 flex flex-col">
@@ -153,7 +178,7 @@ function Notes() {
           ))}
         </div>
       ) : (
-        <div>Nothing here </div>
+        <div>Nothing here</div>
       )}
     </div>
   );
