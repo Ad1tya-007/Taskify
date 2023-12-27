@@ -10,9 +10,11 @@ import uuid from 'react-uuid';
 import { setLists } from '../../store/listSlice';
 import { setChosenList } from '../../store/chosenListSlice';
 import { IList } from '../../utils';
+import { setTasks } from '../../store/tasksSlice';
 
 function Sidebar() {
   const lists = useAppSelector((state) => state.list);
+  const tasks = useAppSelector((state) => state.task);
   const chosenList = useAppSelector((state) => state.chosenList);
 
   const dispatch = useAppDispatch();
@@ -55,7 +57,9 @@ function Sidebar() {
   const handleNewList = () => [setIsNewList(!isNewList)];
 
   const handleDeleteList = (list: IList) => {
+    const newTasks = tasks.filter((task) => task.type != list.name);
     const newList = lists.filter((obj) => obj.name != list.name);
+    dispatch(setTasks(newTasks));
     dispatch(setLists(newList));
     if (chosenList == list.name) {
       dispatch(setChosenList('Home'));
