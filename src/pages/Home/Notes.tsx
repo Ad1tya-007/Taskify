@@ -11,9 +11,9 @@ import { setTasks } from '../../store/tasksSlice';
 
 function Notes() {
   const [text, setText] = useState<string>('');
-  const [isClicked, setIsClicked] = useState(false);
   const [type, setType] = useState<string>('Home');
-  const [isDropdownClicked, setIsDropdownClicked] = useState(false);
+  const [isClicked, setIsClicked] = useState<boolean>(false);
+  const [isDropdownClicked, setIsDropdownClicked] = useState<boolean>(false);
 
   const tasks = useAppSelector((state) => state.task);
   const lists = useAppSelector((state) => state.list);
@@ -149,7 +149,7 @@ function Notes() {
                 leaveTo="transform opacity-0 scale-95"
               >
                 <Menu.Items className="absolute z-10 mt-2 max-h-[700px] w-56 origin-top-right overflow-y-auto bg-white text-gray-500 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <div className="py-1" data-cy="locations-dropdown">
+                  <div className="py-1">
                     {lists?.map((list) => (
                       <Menu.Item key={list.id} data-id={list.id}>
                         {({ active }) => (

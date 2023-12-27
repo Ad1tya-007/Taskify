@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setTasks } from '../../store/tasksSlice';
 
 interface TaskProps {
-  note: string | null;
+  note: string;
   type: string;
 }
 
