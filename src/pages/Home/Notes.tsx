@@ -32,12 +32,12 @@ function Notes() {
     }
     if (event.key == 'Enter') {
       const updatedTasks = [
-        ...tasks,
         {
           id: uuid(),
           name: text,
           type: type,
         },
+        ...tasks,
       ];
       dispatch(setTasks(updatedTasks));
       setText('');
