@@ -11,6 +11,7 @@ import { setLists } from '../../store/listSlice';
 import { setChosenList } from '../../store/chosenListSlice';
 import { IList } from '../../utils';
 import { setTasks } from '../../store/tasksSlice';
+import toast from 'react-hot-toast';
 
 function Sidebar() {
   const lists = useAppSelector((state) => state.list);
@@ -51,6 +52,7 @@ function Sidebar() {
       setText('');
       setRing('black');
       setIsNewList(false);
+      toast.success('Succesfully created new list');
     }
   };
 
@@ -64,6 +66,7 @@ function Sidebar() {
     if (chosenList == list.name) {
       dispatch(setChosenList('Home'));
     }
+    toast.success('Successfully deleted list');
   };
 
   return (

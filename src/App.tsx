@@ -5,6 +5,7 @@ import routes from './pages/routes';
 import { Suspense } from 'react';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ const wrappedApp = () => {
   const reactLocation = new ReactLocation();
   return (
     <Router location={reactLocation} routes={routes}>
+      <Toaster />
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
           <App />
