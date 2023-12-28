@@ -24,7 +24,7 @@ function Task({ id, note, type }: TaskProps) {
       const newTasks = tasks.filter((task) => task.id !== id);
       toast.success('Successfully deleted task');
       dispatch(setTasks(newTasks));
-    }, 700);
+    }, 1200);
   };
 
   const renderIcon = (color: string) => {
@@ -47,14 +47,14 @@ function Task({ id, note, type }: TaskProps) {
 
   return (
     <div>
-      <div className="flex items-center justify-center w-full h-full">
+      <div className="relative flex items-center justify-center w-full h-full">
         <div
           className={`${
             squareClicked ? 'bg-opacity task ' : 'bg-white'
-          }  shadow-xl rounded-xl mt-5  w-[70%] px-8 py-4 flex flex-row items-center justify-between`}
+          }  shadow-xl rounded-xl mt-5  w-[70%] px-8 py-4 flex flex-row items-center justify-between relative`}
         >
           <div>
-            <div className="flex flex-row space-x-3 items-center ">
+            <div className="flex flex-row space-x-3 items-center">
               <div
                 className={`${
                   squareClicked
@@ -63,14 +63,13 @@ function Task({ id, note, type }: TaskProps) {
                 } rounded-sm cursor-pointer h-5 w-5`}
                 onClick={handleSquareClick}
               />
-
               <div className="">{note}</div>
             </div>
           </div>
           {renderIcon(color)}
         </div>
         {squareClicked && (
-          <div className="absolute h-0.5 w-[45%] bg-gray-400 transform -translate-y-0.5 animate-strikethrough mt-6" />
+          <div className="absolute top-12 h-0.5 w-[45%] bg-gray-400 transform -translate-y-0.5 animate-strikethrough" />
         )}
       </div>
     </div>
