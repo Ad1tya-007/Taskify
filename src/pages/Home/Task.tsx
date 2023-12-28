@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Ring from './Ring';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setTasks } from '../../store/tasksSlice';
+import toast from 'react-hot-toast';
 
 interface TaskProps {
   note: string;
@@ -20,6 +21,7 @@ function Task({ note, type }: TaskProps) {
     setSquareClicked(true);
     setTimeout(() => {
       const newTasks = tasks.filter((task) => task.name !== note);
+      toast.success('Successfully deleted task');
       dispatch(setTasks(newTasks));
     }, 700);
   };

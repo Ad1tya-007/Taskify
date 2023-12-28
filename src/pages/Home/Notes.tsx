@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import Ring from './Ring';
 import uuid from 'react-uuid';
 import { setTasks } from '../../store/tasksSlice';
+import toast from 'react-hot-toast';
 
 function Notes() {
   const [text, setText] = useState<string>('');
@@ -42,6 +43,7 @@ function Notes() {
       dispatch(setTasks(updatedTasks));
       setText('');
       setType('Home');
+      toast.success('Successfully created new task');
     }
   };
 
