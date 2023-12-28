@@ -63,7 +63,7 @@ function Notes() {
   const renderIcon = (selectedList: string) => {
     if (selectedList == 'Home') {
       return <img src={HomeIcon} className="h-7 w-7" />;
-    } else if (selectedList == 'Today') {
+    } else if (selectedList == 'Completed') {
       return <img src={TodayIcon} className="h-7 w-7" />;
     } else {
       const selected = lists.find((list) => list.name == selectedList);
@@ -74,7 +74,7 @@ function Notes() {
   const getInitalState = (type: string) => {
     if (type == 'Home') {
       return tasks;
-    } else if (type == 'Today') {
+    } else if (type == 'Completed') {
       return tasks;
     } else {
       return tasks.filter((task) => task.type == type);

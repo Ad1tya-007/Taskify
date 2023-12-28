@@ -72,42 +72,41 @@ function Sidebar() {
   return (
     <div className="bg-white px-10 py-10 rounded-3xl shadow-2xl h-full">
       <div className="flex flex-col space-y-2">
-        <div className="hover:bg-gray-100 hover:rounded-2xl px-2 py-4 hover:cursor-pointer">
-          <div
-            className="flex flex-row items-center space-x-3 ml-2"
-            onClick={() => dispatch(setChosenList('Home'))}
-          >
+        <div
+          className="hover:bg-gray-100 hover:rounded-2xl px-2 py-4 hover:cursor-pointer"
+          onClick={() => dispatch(setChosenList('Home'))}
+        >
+          <div className="flex flex-row items-center space-x-3 ml-2">
             <img src={HomeIcon} className="h-5 w-5" />
             <div className="text-md">Home</div>
           </div>
         </div>
-        <div className="hover:bg-gray-100 hover:rounded-2xl px-2 py-4 hover:cursor-pointer">
-          <div
-            className="flex flex-row items-center space-x-3 ml-2"
-            onClick={() => dispatch(setChosenList('Today'))}
-          >
+        <div
+          className="hover:bg-gray-100 hover:rounded-2xl px-2 py-4 hover:cursor-pointer"
+          onClick={() => dispatch(setChosenList('Completed'))}
+        >
+          <div className="flex flex-row items-center space-x-3 ml-2">
             <img src={TodayIcon} className="h-5 w-5" />
-            <div className="text-md">Today</div>
+            <div className="text-md">Completed</div>
           </div>
         </div>
         {lists?.map((list) => (
           <div
             key={list.id}
-            className="hover:bg-gray-100 hover:rounded-2xl px-2 py-4 hover:cursor-pointer"
+            className="hover:bg-gray-100 hover:rounded-2xl px-2 py-4 hover:cursor-pointer flex flex-row items-center justify-between"
+            onClick={() => dispatch(setChosenList(list.name))}
           >
-            <div className="flex flex-row items-center justify-between">
-              <div
-                className="flex flex-row items-center space-x-3 ml-2"
-                onClick={() => dispatch(setChosenList(list.name))}
-              >
-                <Ring color={list.color} isTitle={false} />
-                <div className="text-md">{list.name}</div>
-              </div>
-              <TrashIcon
-                className="h-5 w-5"
-                onClick={() => handleDeleteList(list)}
-              />
+            <div className="flex flex-row items-center space-x-3 ml-2">
+              <Ring color={list.color} isTitle={false} />
+              <div className="text-md">{list.name}</div>
             </div>
+            <TrashIcon
+              className="h-5 w-5"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDeleteList(list);
+              }}
+            />
           </div>
         ))}
         {isNewList && (

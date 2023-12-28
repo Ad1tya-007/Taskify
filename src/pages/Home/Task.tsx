@@ -66,13 +66,7 @@ function Task({ note, type }: TaskProps) {
               <div className="">{note}</div>
             </div>
           </div>
-          <div className="flex flex-row items-center space-x-3">
-            <input
-              type="date"
-              className="px-2 py-1 bg-gray-100  rounded-xl text-gray-500 hover:bg-gray-400 hover:text-gray-100"
-            />
-            {renderIcon(color)}
-          </div>
+          {renderIcon(color)}
         </div>
         {squareClicked && (
           <div className="absolute h-0.5 w-[45%] bg-gray-400 transform -translate-y-0.5 animate-strikethrough mt-6" />
