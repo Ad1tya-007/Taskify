@@ -5,11 +5,12 @@ import { setTasks } from '../../store/tasksSlice';
 import toast from 'react-hot-toast';
 
 interface TaskProps {
+  id: string;
   note: string;
   type: string;
 }
 
-function Task({ note, type }: TaskProps) {
+function Task({ id, note, type }: TaskProps) {
   const [squareClicked, setSquareClicked] = useState(false);
   const [color, setColor] = useState<string>('');
 
@@ -20,7 +21,7 @@ function Task({ note, type }: TaskProps) {
   const handleSquareClick = () => {
     setSquareClicked(true);
     setTimeout(() => {
-      const newTasks = tasks.filter((task) => task.name !== note);
+      const newTasks = tasks.filter((task) => task.id !== id);
       toast.success('Successfully deleted task');
       dispatch(setTasks(newTasks));
     }, 700);
