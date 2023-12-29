@@ -43,9 +43,7 @@ function Task({ id, name, type, completed }: ITask) {
 
   const renderIcon = (color: string) => {
     switch (color) {
-      case 'Home':
-        return;
-      case 'Completed':
+      case '':
         return;
       default:
         return <Ring color={color} isTitle={false} />;
