@@ -39,6 +39,7 @@ function Notes() {
           id: uuid(),
           name: text,
           type: type,
+          completed: false,
         },
         ...tasks,
       ];
@@ -75,11 +76,13 @@ function Notes() {
 
   const getInitalState = (type: string) => {
     if (type == 'Home') {
-      return tasks;
+      return tasks.filter((task) => task.completed == false);
     } else if (type == 'Completed') {
-      return tasks;
+      return tasks.filter((task) => task.completed == true);
     } else {
-      return tasks.filter((task) => task.type == type);
+      return tasks.filter(
+        (task) => task.type == type && task.completed == false
+      );
     }
   };
 
@@ -179,10 +182,15 @@ function Notes() {
 
       <div className="h-full overflow-y-auto">
         {filteredTasks.length > 0 ? (
-          <AnimatedList animation={'grow'} initialAnimationDuration={3}>
+          <AnimatedList animation={'grow'}>
             {filteredTasks?.map((task) => (
               <div className="mt-3 " key={task.id}>
-                <Task id={task.id} note={task.name} type={task.type} />
+                <Task
+                  id={task.id}
+                  name={task.name}
+                  type={task.type}
+                  completed={task.completed}
+                />
               </div>
             ))}
           </AnimatedList>

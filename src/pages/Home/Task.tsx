@@ -3,15 +3,10 @@ import Ring from './Ring';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setTasks } from '../../store/tasksSlice';
 import toast from 'react-hot-toast';
+import { ITask } from '../../utils';
 
-interface TaskProps {
-  id: string;
-  note: string;
-  type: string;
-}
-
-function Task({ id, note, type }: TaskProps) {
-  const [squareClicked, setSquareClicked] = useState(false);
+function Task({ id, name, type, completed }: ITask) {
+  const [squareClicked, setSquareClicked] = useState(completed ? true : false);
   const [color, setColor] = useState<string>('');
 
   const lists = useAppSelector((state) => state.list);
@@ -19,19 +14,38 @@ function Task({ id, note, type }: TaskProps) {
   const dispatch = useAppDispatch();
 
   const handleSquareClick = () => {
-    setSquareClicked(true);
-    setTimeout(() => {
-      const newTasks = tasks.filter((task) => task.id !== id);
-      toast.success('Successfully completed task');
-      dispatch(setTasks(newTasks));
-    }, 500);
+    if (completed) {
+      setSquareClicked(false);
+      setTimeout(() => {
+        const taskIndex = tasks.findIndex((task) => task.id === id);
+        const updatedTasks = [...tasks];
+        updatedTasks[taskIndex] = {
+          ...updatedTasks[taskIndex],
+          completed: false,
+        };
+        toast.success('Successfully uncompleted task');
+        dispatch(setTasks(updatedTasks));
+      }, 500);
+    } else {
+      setSquareClicked(true);
+      setTimeout(() => {
+        const taskIndex = tasks.findIndex((task) => task.id === id);
+        const updatedTasks = [...tasks];
+        updatedTasks[taskIndex] = {
+          ...updatedTasks[taskIndex],
+          completed: true,
+        };
+        toast.success('Successfully completed task');
+        dispatch(setTasks(updatedTasks));
+      }, 500);
+    }
   };
 
   const renderIcon = (color: string) => {
     switch (color) {
-      case 'ALL':
+      case 'Home':
         return;
-      case 'TODAY':
+      case 'Completed':
         return;
       default:
         return <Ring color={color} isTitle={false} />;
@@ -63,7 +77,7 @@ function Task({ id, note, type }: TaskProps) {
                 } rounded-sm cursor-pointer h-5 w-5`}
                 onClick={handleSquareClick}
               />
-              <div className="">{note}</div>
+              <div className="">{name}</div>
             </div>
           </div>
           {renderIcon(color)}
