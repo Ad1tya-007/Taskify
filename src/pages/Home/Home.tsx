@@ -11,8 +11,9 @@ function Home() {
   // side effects
   useEffect(() => {
     const handleBeforeUnload = () => {
+      const newTasks = tasks.filter((task) => task.completed == false);
       localStorage.setItem('lists', JSON.stringify(lists));
-      localStorage.setItem('tasks', JSON.stringify(tasks));
+      localStorage.setItem('tasks', JSON.stringify(newTasks));
     };
     window.addEventListener('beforeunload', handleBeforeUnload);
     return () => {
