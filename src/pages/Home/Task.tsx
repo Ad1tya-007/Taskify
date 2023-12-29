@@ -5,11 +5,12 @@ import { setTasks } from '../../store/tasksSlice';
 import toast from 'react-hot-toast';
 
 interface TaskProps {
+  id: string;
   note: string;
   type: string;
 }
 
-function Task({ note, type }: TaskProps) {
+function Task({ id, note, type }: TaskProps) {
   const [squareClicked, setSquareClicked] = useState(false);
   const [color, setColor] = useState<string>('');
 
@@ -20,10 +21,10 @@ function Task({ note, type }: TaskProps) {
   const handleSquareClick = () => {
     setSquareClicked(true);
     setTimeout(() => {
-      const newTasks = tasks.filter((task) => task.name !== note);
-      toast.success('Successfully deleted task');
+      const newTasks = tasks.filter((task) => task.id !== id);
+      toast.success('Successfully completed task');
       dispatch(setTasks(newTasks));
-    }, 700);
+    }, 500);
   };
 
   const renderIcon = (color: string) => {
@@ -46,14 +47,14 @@ function Task({ note, type }: TaskProps) {
 
   return (
     <div>
-      <div className="flex items-center justify-center w-full h-full">
+      <div className="relative flex items-center justify-center w-full h-full">
         <div
           className={`${
             squareClicked ? 'bg-opacity task ' : 'bg-white'
-          }  shadow-xl rounded-xl mt-5  w-[70%] px-8 py-4 flex flex-row items-center justify-between`}
+          }  shadow-xl rounded-xl mt-5  w-[70%] px-8 py-4 flex flex-row items-center justify-between relative`}
         >
           <div>
-            <div className="flex flex-row space-x-3 items-center ">
+            <div className="flex flex-row space-x-3 items-center">
               <div
                 className={`${
                   squareClicked
@@ -62,15 +63,11 @@ function Task({ note, type }: TaskProps) {
                 } rounded-sm cursor-pointer h-5 w-5`}
                 onClick={handleSquareClick}
               />
-
               <div className="">{note}</div>
             </div>
           </div>
           {renderIcon(color)}
         </div>
-        {squareClicked && (
-          <div className="absolute h-0.5 w-[45%] bg-gray-400 transform -translate-y-0.5 animate-strikethrough mt-6" />
-        )}
       </div>
     </div>
   );

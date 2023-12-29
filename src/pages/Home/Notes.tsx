@@ -9,6 +9,8 @@ import Ring from './Ring';
 import uuid from 'react-uuid';
 import { setTasks } from '../../store/tasksSlice';
 import toast from 'react-hot-toast';
+import { AnimatedList } from 'react-animated-list';
+import TaskIcon from '../../assets/icons/taskIcon.png';
 
 function Notes() {
   const [text, setText] = useState<string>('');
@@ -175,17 +177,21 @@ function Notes() {
         </div>
       </div>
 
-      {filteredTasks.length > 0 ? (
-        <div>
-          {filteredTasks?.map((task) => (
-            <div className="mt-3 " key={task.id}>
-              <Task note={task.name} type={task.type} />
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div>Nothing here</div>
-      )}
+      <div className="h-full overflow-y-auto">
+        {filteredTasks.length > 0 ? (
+          <AnimatedList animation={'grow'} initialAnimationDuration={3}>
+            {filteredTasks?.map((task) => (
+              <div className="mt-3 " key={task.id}>
+                <Task id={task.id} note={task.name} type={task.type} />
+              </div>
+            ))}
+          </AnimatedList>
+        ) : (
+          <div className="h-full flex flex-col items-center justify-center w-full">
+            <img src={TaskIcon} className="h-40 w-40 mb-20" />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
