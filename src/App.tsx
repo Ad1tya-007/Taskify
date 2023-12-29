@@ -1,12 +1,13 @@
 import { Outlet, ReactLocation, Router } from '@tanstack/react-location';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import routes from './pages/routes';
 import { Suspense } from 'react';
+import { Provider } from 'react-redux';
+import { store } from './store';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
-    <div className="min-h-screen px-4 py-8">
+    <div className="min-h-screen overflow-hidden w-full fixed">
       <Suspense fallback={null}>
         <Outlet />
       </Suspense>
@@ -15,24 +16,13 @@ function App() {
 }
 
 const wrappedApp = () => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnMount: false,
-        refetchOnWindowFocus: false,
-        refetchOnReconnect: false,
-        retry: false,
-      },
-    },
-  });
-
   const reactLocation = new ReactLocation();
   return (
     <Router location={reactLocation} routes={routes}>
-      <QueryClientProvider client={queryClient}>
+      <Toaster />
+      <Provider store={store}>
         <App />
-        <ReactQueryDevtools position="bottom-right" />
-      </QueryClientProvider>
+      </Provider>
     </Router>
   );
 };

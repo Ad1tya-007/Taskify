@@ -1,7 +1,33 @@
+import { useEffect } from 'react';
+import Notes from './Notes';
+import Sidebar from './Sidebar';
+import { useAppSelector } from '../../hooks';
+
 function Home() {
+  // redux
+  const lists = useAppSelector((state) => state.list);
+  const tasks = useAppSelector((state) => state.task);
+
+  // side effects
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      localStorage.setItem('lists', JSON.stringify(lists));
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [lists, tasks]);
+
   return (
-    <div className="min-h-screen border">
-      <div className="text-black">Hello World</div>
+    <div className="h-screen bg-gray-100 px-5 py-10 flex">
+      <div className="w-1/5">
+        <Sidebar />
+      </div>
+      <div className="flex-1">
+        <Notes />
+      </div>
     </div>
   );
 }
