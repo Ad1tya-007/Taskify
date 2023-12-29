@@ -90,18 +90,3 @@
     width: 45%;
   }
 }
-
-.animate-strikethrough {
-  -webkit-animation: strikethrough 0.5s ease-out;
-  animation: strikethrough 0.5s ease-out;
-}
-
-.list-slid-in {
-  transition: margin-top 1.6s ease-in-out;
-  margin-top: 40px;
-}
-
-.list-slid-out {
-  transition: margin-top 1.6s ease-in-out;
-  margin-top: 0;
-}

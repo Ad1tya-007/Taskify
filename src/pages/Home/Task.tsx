@@ -22,9 +22,9 @@ function Task({ id, note, type }: TaskProps) {
     setSquareClicked(true);
     setTimeout(() => {
       const newTasks = tasks.filter((task) => task.id !== id);
-      toast.success('Successfully deleted task');
+      toast.success('Successfully completed task');
       dispatch(setTasks(newTasks));
-    }, 1200);
+    }, 500);
   };
 
   const renderIcon = (color: string) => {
@@ -68,9 +68,6 @@ function Task({ id, note, type }: TaskProps) {
           </div>
           {renderIcon(color)}
         </div>
-        {squareClicked && (
-          <div className="absolute top-12 h-0.5 w-[45%] bg-gray-400 transform -translate-y-0.5 animate-strikethrough" />
-        )}
       </div>
     </div>
   );

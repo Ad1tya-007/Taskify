@@ -179,7 +179,7 @@ function Notes() {
 
       <div className="h-full overflow-y-auto">
         {filteredTasks.length > 0 ? (
-          <AnimatedList animation={'grow'} initialAnimationDuration={10}>
+          <AnimatedList animation={'grow'} initialAnimationDuration={3}>
             {filteredTasks?.map((task) => (
               <div className="mt-3 " key={task.id}>
                 <Task id={task.id} note={task.name} type={task.type} />
@@ -188,8 +188,7 @@ function Notes() {
           </AnimatedList>
         ) : (
           <div className="h-full flex flex-col items-center justify-center w-full">
-            <img src={TaskIcon} className="h-40 w-40 ml-10" />
-            <h1 className="text-center w-full">No Tasks Here</h1>
+            <img src={TaskIcon} className="h-40 w-40 mb-20" />
           </div>
         )}
       </div>
