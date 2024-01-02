@@ -25,6 +25,7 @@
     "react-helmet": "^6.1.0",
     "react-hot-toast": "^2.4.1",
     "react-redux": "^9.0.4",
+    "react-toggle-slider": "^0.4.0",
     "react-uuid": "^2.0.0"
   },
   "devDependencies": {

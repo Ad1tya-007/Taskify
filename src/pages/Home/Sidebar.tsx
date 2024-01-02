@@ -12,11 +12,16 @@ import { setChosenList } from '../../store/chosenListSlice';
 import { IList } from '../../utils';
 import { setTasks } from '../../store/tasksSlice';
 import toast from 'react-hot-toast';
+import { ToggleSlider } from 'react-toggle-slider';
+import { setTheme } from '../../store/themeSlice';
 
 function Sidebar() {
   const lists = useAppSelector((state) => state.list);
   const tasks = useAppSelector((state) => state.task);
   const chosenList = useAppSelector((state) => state.chosenList);
+  const theme = useAppSelector((state) => state.theme);
+
+  console.log(theme);
 
   const dispatch = useAppDispatch();
 
@@ -30,6 +35,14 @@ function Sidebar() {
 
   const handleTextChange = (e: string) => {
     setText(e);
+  };
+
+  const handleToggle = () => {
+    if (theme === 'light') {
+      dispatch(setTheme('dark'));
+    } else if (theme === 'dark') {
+      dispatch(setTheme('light'));
+    }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -70,7 +83,20 @@ function Sidebar() {
   };
 
   return (
-    <div className="bg-white px-10 py-10 rounded-3xl shadow-2xl h-full">
+    <div className="bg-white dark:bg-slate-700 px-10 py-10 rounded-3xl shadow-2xl h-full">
+      <div className="w-full flex justify-center items-center">
+        <ToggleSlider
+          draggable={true}
+          handleBackgroundColor="#334155"
+          handleBackgroundColorActive="#D1D5DB" // bg-gray-300
+          barBackgroundColor="#D1D5DB" // bg-gray-300
+          barBackgroundColorActive="#334155"
+          handleTransitionDuration="500"
+          onToggle={handleToggle}
+          barTransitionType="fade"
+          flip={theme == 'light' ? false : true}
+        />
+      </div>
       <div className="flex flex-col space-y-2">
         <div
           className="hover:bg-gray-100 hover:rounded-2xl px-2 py-4 hover:cursor-pointer"
