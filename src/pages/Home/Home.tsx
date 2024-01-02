@@ -21,15 +21,14 @@ function Home() {
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, [lists, tasks]);
+  }, [lists, tasks, theme]);
 
   useEffect(() => {
     if (theme === 'light') {
-      document.body.classList.remove('dark:');
+      document.documentElement.classList.add('dark');
     } else if (theme === 'dark') {
-      document.body.classList.add('dark:');
+      document.documentElement.classList.remove('dark');
     }
-    // console.log('Document Body:', document.body);
   }, [theme]);
 
   return (

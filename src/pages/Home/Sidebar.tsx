@@ -21,8 +21,6 @@ function Sidebar() {
   const chosenList = useAppSelector((state) => state.chosenList);
   const theme = useAppSelector((state) => state.theme);
 
-  console.log(theme);
-
   const dispatch = useAppDispatch();
 
   const [isNewList, setIsNewList] = useState<boolean>(false);
@@ -82,19 +80,21 @@ function Sidebar() {
     toast.success('Successfully deleted list');
   };
 
+  // #D1D5DB light colour
+  // #334155 dark colour
+
   return (
     <div className="bg-white dark:bg-slate-700 px-10 py-10 rounded-3xl shadow-2xl h-full">
       <div className="w-full flex justify-center items-center">
         <ToggleSlider
           draggable={true}
           handleBackgroundColor="#334155"
-          handleBackgroundColorActive="#D1D5DB" // bg-gray-300
-          barBackgroundColor="#D1D5DB" // bg-gray-300
+          handleBackgroundColorActive="#D1D5DB"
+          barBackgroundColor="#D1D5DB"
           barBackgroundColorActive="#334155"
           handleTransitionDuration="500"
           onToggle={handleToggle}
           barTransitionType="fade"
-          flip={theme == 'light' ? false : true}
         />
       </div>
       <div className="flex flex-col space-y-2">
