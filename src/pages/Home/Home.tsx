@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import Notes from './Notes';
 import Sidebar from './Sidebar';
 import { useAppSelector } from '../../hooks';
+import { ITask } from '../../utils';
 
 function Home() {
   // redux
@@ -12,7 +13,7 @@ function Home() {
   // side effects
   useEffect(() => {
     const handleBeforeUnload = () => {
-      const newTasks = tasks.filter((task) => task.completed == false);
+      const newTasks = tasks.filter((task: ITask) => task.completed == false);
       localStorage.setItem('lists', JSON.stringify(lists));
       localStorage.setItem('tasks', JSON.stringify(newTasks));
       localStorage.setItem('theme', theme);
