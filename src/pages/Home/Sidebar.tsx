@@ -72,8 +72,12 @@ function Sidebar() {
   const handleNewList = () => [setIsNewList(!isNewList)];
 
   const handleDeleteList = (list: IList) => {
-    const newTasks = tasks.filter((task) => task.type != list.name);
-    const newList = lists.filter((obj) => obj.name != list.name);
+    const newTasks = tasks.filter(
+      (task: { type: string }) => task.type != list.name
+    );
+    const newList = lists.filter(
+      (obj: { name: string }) => obj.name != list.name
+    );
     dispatch(setTasks(newTasks));
     dispatch(setLists(newList));
     if (chosenList == list.name) {
@@ -124,7 +128,7 @@ function Sidebar() {
             <div className="text-md">Completed</div>
           </div>
         </div>
-        {lists?.map((list) => (
+        {lists?.map((list: IList) => (
           <div
             key={list.id}
             className="hover:bg-gray-100 hover:rounded-2xl px-2 py-4 hover:cursor-pointer flex flex-row items-center justify-between"
