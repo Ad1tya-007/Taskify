@@ -3,7 +3,7 @@ import Ring from './Ring';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setTasks } from '../../store/tasksSlice';
 import toast from 'react-hot-toast';
-import { ITask } from '../../utils';
+import { IList, ITask } from '../../utils';
 
 function Task({ id, name, type, completed }: ITask) {
   const [squareClicked, setSquareClicked] = useState(completed ? true : false);
@@ -17,7 +17,7 @@ function Task({ id, name, type, completed }: ITask) {
     if (completed) {
       setSquareClicked(false);
       setTimeout(() => {
-        const taskIndex = tasks.findIndex((task) => task.id === id);
+        const taskIndex = tasks.findIndex((task: ITask) => task.id === id);
         const updatedTasks = [...tasks];
         updatedTasks[taskIndex] = {
           ...updatedTasks[taskIndex],
@@ -29,7 +29,7 @@ function Task({ id, name, type, completed }: ITask) {
     } else {
       setSquareClicked(true);
       setTimeout(() => {
-        const taskIndex = tasks.findIndex((task) => task.id === id);
+        const taskIndex = tasks.findIndex((task: ITask) => task.id === id);
         const updatedTasks = [...tasks];
         updatedTasks[taskIndex] = {
           ...updatedTasks[taskIndex],
@@ -51,7 +51,7 @@ function Task({ id, name, type, completed }: ITask) {
   };
 
   useEffect(() => {
-    const selectedList = lists.find((item) => item.name === type);
+    const selectedList = lists.find((item: IList) => item.name === type);
     if (selectedList?.color) {
       setColor(selectedList?.color);
     }

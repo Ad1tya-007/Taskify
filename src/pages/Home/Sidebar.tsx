@@ -1,8 +1,12 @@
-import HomeIcon from '../../assets/icons/home.png';
-import TodayIcon from '../../assets/icons/date.png';
 import Ring from './Ring';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { MinusIcon, PlusIcon, TrashIcon } from '@heroicons/react/20/solid';
+import {
+  MinusIcon,
+  PlusIcon,
+  TrashIcon,
+  HomeIcon,
+  CheckCircleIcon,
+} from '@heroicons/react/20/solid';
 import { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { ColorResult, GithubPicker } from 'react-color';
@@ -86,9 +90,6 @@ function Sidebar() {
     toast.success('Successfully deleted list');
   };
 
-  // #D1D5DB light colour
-  // #334155 dark colour
-
   return (
     <div className="bg-white dark:bg-slate-700 px-10 py-10 rounded-3xl shadow-2xl h-full">
       <div className="w-full flex justify-center items-center">
@@ -115,7 +116,7 @@ function Sidebar() {
           onClick={() => dispatch(setChosenList('Home'))}
         >
           <div className="flex flex-row items-center space-x-3 ml-2">
-            <img src={HomeIcon} className="h-5 w-5" />
+            <HomeIcon className="h-6 w-6" />
             <div className="text-md">Home</div>
           </div>
         </div>
@@ -124,7 +125,7 @@ function Sidebar() {
           onClick={() => dispatch(setChosenList('Completed'))}
         >
           <div className="flex flex-row items-center space-x-3 ml-2">
-            <img src={TodayIcon} className="h-5 w-5" />
+            <CheckCircleIcon className="h-6 w-6" />
             <div className="text-md">Completed</div>
           </div>
         </div>
