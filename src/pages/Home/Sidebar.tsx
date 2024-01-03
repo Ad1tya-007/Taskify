@@ -9,7 +9,7 @@ import { ColorResult, GithubPicker } from 'react-color';
 import uuid from 'react-uuid';
 import { setLists } from '../../store/listSlice';
 import { setChosenList } from '../../store/chosenListSlice';
-import { IList } from '../../utils';
+import { IList, getInitialTheme } from '../../utils';
 import { setTasks } from '../../store/tasksSlice';
 import toast from 'react-hot-toast';
 import { ToggleSlider } from 'react-toggle-slider';
@@ -22,6 +22,8 @@ function Sidebar() {
   const theme = useAppSelector((state) => state.theme);
 
   const dispatch = useAppDispatch();
+
+  const initialTheme = getInitialTheme();
 
   const [isNewList, setIsNewList] = useState<boolean>(false);
   const [text, setText] = useState('');
@@ -87,11 +89,17 @@ function Sidebar() {
     <div className="bg-white dark:bg-slate-700 px-10 py-10 rounded-3xl shadow-2xl h-full">
       <div className="w-full flex justify-center items-center">
         <ToggleSlider
-          draggable={true}
-          handleBackgroundColor="#334155"
-          handleBackgroundColorActive="#D1D5DB"
-          barBackgroundColor="#D1D5DB"
-          barBackgroundColorActive="#334155"
+          draggable={false}
+          handleBackgroundColor={
+            initialTheme === 'light' ? '#D1D5DB' : '#334155'
+          }
+          handleBackgroundColorActive={
+            initialTheme === 'light' ? '#334155' : '#D1D5DB'
+          }
+          barBackgroundColor={initialTheme === 'light' ? '#1e293b' : '#D1D5DB'}
+          barBackgroundColorActive={
+            initialTheme === 'light' ? '#D1D5DB' : '#1e293b'
+          }
           handleTransitionDuration="500"
           onToggle={handleToggle}
           barTransitionType="fade"
