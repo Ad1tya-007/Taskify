@@ -6,7 +6,7 @@ export const chosenListSlice = createSlice({
   name: 'chosenList',
   initialState,
   reducers: {
-    setChosenList: (state, action: PayloadAction<string>) => {
+    setChosenList: (_state, action: PayloadAction<string>) => {
       return action.payload;
     },
   },

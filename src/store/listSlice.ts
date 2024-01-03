@@ -8,7 +8,7 @@ export const listsSlice = createSlice({
   name: 'lists',
   initialState: getInitialState(),
   reducers: {
-    setLists: (state, action: PayloadAction<IList[]>) => {
+    setLists: (_state, action: PayloadAction<IList[]>) => {
       return action.payload;
     },
   },

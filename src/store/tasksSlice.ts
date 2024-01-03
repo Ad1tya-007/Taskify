@@ -8,7 +8,7 @@ export const tasksSlice = createSlice({
   name: 'tasks',
   initialState: getInitialState(),
   reducers: {
-    setTasks: (state, action: PayloadAction<ITask[]>) => {
+    setTasks: (_state, action: PayloadAction<ITask[]>) => {
       return action.payload;
     },
   },
