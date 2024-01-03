@@ -11,6 +11,7 @@ import { setTasks } from '../../store/tasksSlice';
 import toast from 'react-hot-toast';
 import { AnimatedList } from 'react-animated-list';
 import TaskIcon from '../../assets/icons/taskIcon.png';
+import { IList, ITask } from '../../utils';
 
 function Notes() {
   const [text, setText] = useState<string>('');
@@ -69,19 +70,21 @@ function Notes() {
     } else if (selectedList == 'Completed') {
       return <img src={TodayIcon} className="h-7 w-7" />;
     } else {
-      const selected = lists.find((list) => list.name == selectedList);
+      const selected = lists.find(
+        (list: { name: string }) => list.name == selectedList
+      );
       return <Ring color={selected!.color} isTitle={true} />;
     }
   };
 
   const getInitalState = (type: string) => {
     if (type == 'Home') {
-      return tasks.filter((task) => task.completed == false);
+      return tasks.filter((task: ITask) => task.completed == false);
     } else if (type == 'Completed') {
-      return tasks.filter((task) => task.completed == true);
+      return tasks.filter((task: ITask) => task.completed == true);
     } else {
       return tasks.filter(
-        (task) => task.type == type && task.completed == false
+        (task: ITask) => task.type == type && task.completed == false
       );
     }
   };
@@ -157,7 +160,7 @@ function Notes() {
               >
                 <Menu.Items className="absolute z-10 mt-2 max-h-[700px] w-56 origin-top-right overflow-y-auto bg-white text-gray-500 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
-                    {lists?.map((list) => (
+                    {lists?.map((list: IList) => (
                       <Menu.Item key={list.id} data-id={list.id}>
                         {({ active }) => (
                           <a
@@ -183,7 +186,7 @@ function Notes() {
       <div className="h-full overflow-y-auto">
         {filteredTasks.length > 0 ? (
           <AnimatedList animation={'grow'}>
-            {filteredTasks?.map((task) => (
+            {filteredTasks?.map((task: ITask) => (
               <div className="mt-3 " key={task.id}>
                 <Task
                   id={task.id}
