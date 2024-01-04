@@ -50,6 +50,7 @@ function Notes() {
       dispatch(setTasks(updatedTasks));
       setText('');
       setType('Home');
+      setIsClicked(false);
       toast.success('Successfully created new task');
     }
   };
@@ -105,18 +106,20 @@ function Notes() {
         <div className="flex items-center justify-center w-full">
           <div
             className={`${
-              isClicked ? 'bg-white' : 'bg-slate-200'
+              isClicked
+                ? 'bg-white dark:bg-slate-600'
+                : 'bg-slate-200 dark:bg-slate-700'
             } task-bar shadow-xl rounded-xl w-[70%] px-8 py-4 flex flex-row items-center h-full`}
           >
-            <div className="flex flex-row items-center justify-between py-1 w-full h-full">
-              <div className="flex flex-row space-x-3 flex-1 items-center">
+            <div className="flex flex-row items-center justify-between py-1 w-full h-full ">
+              <div className="flex flex-row space-x-3 flex-1 items-center ">
                 {isClicked && (
                   <div className="bg-gray-300 rounded-sm cursor-pointer h-5 w-5 animate-square" />
                 )}
                 <input
                   type="text"
                   placeholder="Write a new Task"
-                  className={`outline-none bg-transparent flex flex-1 border-none text-gray-600 custom-input ${
+                  className={`outline-none bg-transparent  flex flex-1 border-none text-gray-600 dark:text-gray-400 custom-input ${
                     isClicked ? 'input-slid-in' : 'input-slid-out'
                   }`}
                   value={text}
