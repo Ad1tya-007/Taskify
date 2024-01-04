@@ -25,7 +25,6 @@ function Notes() {
   const tasks = useAppSelector((state) => state.task);
   const lists = useAppSelector((state) => state.list);
   const chosenList = useAppSelector((state) => state.chosenList);
-  console.log('🚀 ~ file: Notes.tsx:28 ~ Notes ~ chosenList:', chosenList);
 
   const dispatch = useAppDispatch();
 

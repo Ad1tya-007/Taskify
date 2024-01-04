@@ -1,6 +1,6 @@
 interface RingProps {
   color: string;
-  isTitle: boolean;
+  isTitle?: boolean;
 }
 
 function Ring({ color, isTitle = false }: RingProps) {
