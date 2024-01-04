@@ -96,7 +96,7 @@ function Notes() {
 
   return (
     <div className="h-full px-20 py-10 flex flex-col">
-      <div className="flex flex-row space-x-2 items-center">
+      <div className="flex flex-row space-x-2 items-center text-black dark:text-gray-400">
         {renderIcon(chosenList)}
         <div className="text-4xl py-5">{chosenList}</div>
       </div>
