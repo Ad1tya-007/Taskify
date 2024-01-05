@@ -117,7 +117,7 @@ function Notes() {
                 : 'bg-slate-200 dark:bg-gray-700'
             } task-bar shadow-xl rounded-xl w-[70%] px-8 py-4 flex flex-row items-center h-full`}
           >
-            <div className="flex flex-row items-center justify-between py-1 w-full h-full ">
+            <div className="flex flex-row items-center justify-between w-full h-full py-1">
               <div className="flex flex-row space-x-3 flex-1 items-center ">
                 {isClicked && (
                   <div className="bg-gray-300 rounded-sm cursor-pointer h-5 w-5 animate-square" />
@@ -139,30 +139,26 @@ function Notes() {
               <Menu
                 as="div"
                 className={`${
-                  text.length > 0 && lists.length != 0
-                    ? 'inline-block'
-                    : 'hidden'
+                  text.length > 0 && lists.length != 0 ? 'flex' : 'hidden'
                 } text-left h-full`}
               >
-                <div>
-                  <Menu.Button
-                    className="inline-flex w-full justify-center px-5 py-1 text-sm h-full font-medium text-gray-500 shadow-sm border border-gray-400"
-                    onClick={() => handleDropdownClicked()}
-                  >
-                    <div>{type}</div>
-                    {isDropdownClicked ? (
-                      <ChevronUpIcon
-                        className="-mr-1 ml-2 h-5 w-5"
-                        aria-hidden="true"
-                      />
-                    ) : (
-                      <ChevronDownIcon
-                        className="-mr-1 ml-2 h-5 w-5"
-                        aria-hidden="true"
-                      />
-                    )}
-                  </Menu.Button>
-                </div>
+                <Menu.Button
+                  className="flex w-full justify-center px-4 text-sm h-full font-medium text-gray-500 shadow-sm border border-gray-400"
+                  onClick={() => handleDropdownClicked()}
+                >
+                  <div>{type}</div>
+                  {isDropdownClicked ? (
+                    <ChevronUpIcon
+                      className="-mr-1 ml-2 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  ) : (
+                    <ChevronDownIcon
+                      className="-mr-1 ml-2 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  )}
+                </Menu.Button>
 
                 <Transition
                   as={Fragment}
@@ -173,7 +169,7 @@ function Notes() {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute z-10 mt-2 max-h-[700px] w-56 origin-top-right overflow-y-auto bg-white dark:bg-slate-700 text-gray-500 shadow-lg ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Items className="absolute z-10 mt-7 max-h-[700px] w-56 origin-top-right overflow-y-auto bg-white dark:bg-slate-700 text-gray-500 shadow-lg ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
                       {lists?.map((list: IList) => (
                         <Menu.Item key={list.id} data-id={list.id}>
@@ -185,7 +181,10 @@ function Notes() {
                                   ? 'bg-gray-100 text-gray-900 dark:bg-slate-600 dark:text-gray-400'
                                   : ''
                               }`}
-                              onClick={() => setType(list.name)}
+                              onClick={() => {
+                                setType(list.name);
+                                setIsDropdownClicked(false);
+                              }}
                             >
                               {list.name}
                             </a>
