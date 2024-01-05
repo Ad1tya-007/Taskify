@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import {
   CheckCircleIcon,
@@ -25,7 +25,6 @@ function Notes() {
   const tasks = useAppSelector((state) => state.task);
   const lists = useAppSelector((state) => state.list);
   const chosenList = useAppSelector((state) => state.chosenList);
-  console.log('🚀 ~ file: Notes.tsx:28 ~ Notes ~ chosenList:', chosenList);
 
   const dispatch = useAppDispatch();
 
@@ -51,6 +50,7 @@ function Notes() {
       dispatch(setTasks(updatedTasks));
       setText('');
       setType('Home');
+      setIsClicked(false);
       toast.success('Successfully created new task');
     }
   };
@@ -95,9 +95,13 @@ function Notes() {
 
   const filteredTasks = getInitalState(chosenList);
 
+  useEffect(() => {
+    setType(chosenList);
+  }, [chosenList]);
+
   return (
     <div className="h-full px-20 py-10 flex flex-col">
-      <div className="flex flex-row space-x-2 items-center">
+      <div className="flex flex-row space-x-2 items-center text-black dark:text-gray-400">
         {renderIcon(chosenList)}
         <div className="text-4xl py-5">{chosenList}</div>
       </div>
@@ -106,18 +110,20 @@ function Notes() {
         <div className="flex items-center justify-center w-full">
           <div
             className={`${
-              isClicked ? 'bg-white' : 'bg-slate-200'
+              isClicked
+                ? 'bg-white dark:bg-slate-700'
+                : 'bg-slate-200 dark:bg-gray-700'
             } task-bar shadow-xl rounded-xl w-[70%] px-8 py-4 flex flex-row items-center h-full`}
           >
-            <div className="flex flex-row items-center justify-between py-1 w-full h-full">
-              <div className="flex flex-row space-x-3 flex-1 items-center">
+            <div className="flex flex-row items-center justify-between py-1 w-full h-full ">
+              <div className="flex flex-row space-x-3 flex-1 items-center ">
                 {isClicked && (
                   <div className="bg-gray-300 rounded-sm cursor-pointer h-5 w-5 animate-square" />
                 )}
                 <input
                   type="text"
                   placeholder="Write a new Task"
-                  className={`outline-none bg-transparent flex flex-1 border-none text-gray-600 custom-input ${
+                  className={`outline-none bg-transparent flex flex-1 border-none text-gray-600 dark:text-gray-400  ${
                     isClicked ? 'input-slid-in' : 'input-slid-out'
                   }`}
                   value={text}
@@ -165,7 +171,7 @@ function Notes() {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute z-10 mt-2 max-h-[700px] w-56 origin-top-right overflow-y-auto bg-white text-gray-500 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Items className="absolute z-10 mt-2 max-h-[700px] w-56 origin-top-right overflow-y-auto bg-white dark:bg-slate-700 text-gray-500 shadow-lg ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
                       {lists?.map((list: IList) => (
                         <Menu.Item key={list.id} data-id={list.id}>
@@ -173,7 +179,9 @@ function Notes() {
                             <a
                               href="#"
                               className={`block px-4 py-2 text-sm ${
-                                active ? 'bg-gray-100 text-gray-900' : ''
+                                active
+                                  ? 'bg-gray-100 text-gray-900 dark:bg-slate-600 dark:text-gray-400'
+                                  : ''
                               }`}
                               onClick={() => setType(list.name)}
                             >

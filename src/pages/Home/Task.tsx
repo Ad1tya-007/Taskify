@@ -60,23 +60,17 @@ function Task({ id, name, type, completed }: ITask) {
   return (
     <div>
       <div className="relative flex items-center justify-center w-full h-full">
-        <div
-          className={`${
-            squareClicked ? 'bg-opacity task ' : 'bg-white'
-          }  shadow-xl rounded-xl mt-5  w-[70%] px-8 py-4 flex flex-row items-center justify-between relative`}
-        >
-          <div>
-            <div className="flex flex-row space-x-3 items-center">
-              <div
-                className={`${
-                  squareClicked
-                    ? 'bg-green-300 hover:bg-gray-300'
-                    : 'bg-gray-300 hover:bg-green-300'
-                } rounded-sm cursor-pointer h-5 w-5`}
-                onClick={handleSquareClick}
-              />
-              <div className="">{name}</div>
-            </div>
+        <div className="bg-white dark:bg-slate-700 dark:text-gray-400 shadow-xl rounded-xl mt-5 w-[70%] px-8 py-4 flex flex-row items-center justify-between relative">
+          <div className="flex flex-row space-x-3 items-center">
+            <div
+              className={`${
+                squareClicked
+                  ? 'bg-green-300 hover:bg-gray-300 dark:bg-green-300 dark:hover:bg-gray-500'
+                  : 'bg-gray-300 dark:bg-gray-500 hover:bg-green-300 dark:hover:bg-green-300'
+              } rounded-sm cursor-pointer h-5 w-5`}
+              onClick={handleSquareClick}
+            />
+            <div className="">{name}</div>
           </div>
           {renderIcon(color)}
         </div>
