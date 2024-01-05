@@ -2,11 +2,11 @@ import { useState } from 'react';
 import Ring from './Ring';
 import { IList } from '../../utils';
 import { MinusIcon } from '@heroicons/react/20/solid';
-import toast from 'react-hot-toast';
 import { setTasks } from '../../store/tasksSlice';
 import { setLists } from '../../store/listSlice';
 import { setChosenList } from '../../store/chosenListSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { showToastSuccess } from '../../utils/toast';
 
 interface ListProps {
   list: IList;
@@ -16,6 +16,7 @@ function List({ list }: ListProps) {
   const [isHovered, setIsHovered] = useState(false);
   const tasks = useAppSelector((state) => state.task);
   const chosenList = useAppSelector((state) => state.chosenList);
+  const theme = useAppSelector((state) => state.theme);
   const lists = useAppSelector((state) => state.list);
 
   const dispatch = useAppDispatch();
@@ -32,7 +33,7 @@ function List({ list }: ListProps) {
     if (chosenList == list.name) {
       dispatch(setChosenList('Home'));
     }
-    toast.success('Successfully deleted list');
+    showToastSuccess('Successfully deleted list', theme);
   };
 
   return (

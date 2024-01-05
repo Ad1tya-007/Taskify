@@ -53,7 +53,6 @@ function Notes() {
       setText('');
       setType('Home');
       setIsClicked(false);
-      // toast.success('Successfully created new task');
       showToastSuccess('Successfully created new task', theme);
     }
   };

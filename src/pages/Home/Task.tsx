@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import Ring from './Ring';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setTasks } from '../../store/tasksSlice';
-import toast from 'react-hot-toast';
 import { IList, ITask } from '../../utils';
+import { showToastSuccess } from '../../utils/toast';
 
 function Task({ id, name, type, completed }: ITask) {
   const [squareClicked, setSquareClicked] = useState(completed ? true : false);
@@ -11,6 +11,7 @@ function Task({ id, name, type, completed }: ITask) {
 
   const lists = useAppSelector((state) => state.list);
   const tasks = useAppSelector((state) => state.task);
+  const theme = useAppSelector((state) => state.theme);
   const dispatch = useAppDispatch();
 
   const handleSquareClick = () => {
@@ -23,7 +24,7 @@ function Task({ id, name, type, completed }: ITask) {
           ...updatedTasks[taskIndex],
           completed: false,
         };
-        toast.success('Successfully uncompleted task');
+        showToastSuccess('Successfully uncompleted task', theme);
         dispatch(setTasks(updatedTasks));
       }, 500);
     } else {
@@ -35,7 +36,7 @@ function Task({ id, name, type, completed }: ITask) {
           ...updatedTasks[taskIndex],
           completed: true,
         };
-        toast.success('Successfully completed task');
+        showToastSuccess('Successfully completed task', theme);
         dispatch(setTasks(updatedTasks));
       }, 500);
     }
