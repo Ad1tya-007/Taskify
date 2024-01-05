@@ -40,9 +40,9 @@ function Sidebar() {
   };
 
   const handleToggle = () => {
-    if (theme === 'light') {
+    if (theme == 'light') {
       dispatch(setTheme('dark'));
-    } else if (theme === 'dark') {
+    } else {
       dispatch(setTheme('light'));
     }
   };
@@ -56,7 +56,6 @@ function Sidebar() {
     }
     if (event.key == 'Enter') {
       const check = lists.filter((list) => list.name === text);
-      console.log('🚀 ~ file: Sidebar.tsx:59 ~ handleKeyDown ~ check:', check);
       if (check.length == 0) {
         const updatedList = [
           ...lists,
@@ -88,14 +87,14 @@ function Sidebar() {
         <ToggleSlider
           draggable={false}
           handleBackgroundColor={
-            initialTheme === 'light' ? '#D1D5DB' : '#334155'
-          }
-          handleBackgroundColorActive={
             initialTheme === 'light' ? '#334155' : '#D1D5DB'
           }
-          barBackgroundColor={initialTheme === 'light' ? '#1e293b' : '#D1D5DB'}
+          handleBackgroundColorActive={
+            initialTheme === 'light' ? '#D1D5DB' : '#334155'
+          }
+          barBackgroundColor={initialTheme === 'light' ? '#D1D5DB' : '#1e293b'}
           barBackgroundColorActive={
-            initialTheme === 'light' ? '#D1D5DB' : '#1e293b'
+            initialTheme === 'light' ? '#1e293b' : '#D1D5DB'
           }
           handleTransitionDuration="500"
           onToggle={handleToggle}

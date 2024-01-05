@@ -11,10 +11,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import Ring from './Ring';
 import uuid from 'react-uuid';
 import { setTasks } from '../../store/tasksSlice';
-import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
 import { AnimatedList } from 'react-animated-list';
 import TaskIcon from '../../assets/icons/taskIcon.png';
 import { IList, ITask } from '../../utils';
+import { showToastSuccess } from '../../utils/toast';
 
 function Notes() {
   const [text, setText] = useState<string>('');
@@ -24,6 +25,7 @@ function Notes() {
 
   const tasks = useAppSelector((state) => state.task);
   const lists = useAppSelector((state) => state.list);
+  const theme = useAppSelector((state) => state.theme);
   const chosenList = useAppSelector((state) => state.chosenList);
 
   const dispatch = useAppDispatch();
@@ -51,7 +53,8 @@ function Notes() {
       setText('');
       setType('Home');
       setIsClicked(false);
-      toast.success('Successfully created new task');
+      // toast.success('Successfully created new task');
+      showToastSuccess('Successfully created new task', theme);
     }
   };
 
