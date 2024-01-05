@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import {
   CheckCircleIcon,
@@ -94,6 +94,10 @@ function Notes() {
   };
 
   const filteredTasks = getInitalState(chosenList);
+
+  useEffect(() => {
+    setType(chosenList);
+  }, [chosenList]);
 
   return (
     <div className="h-full px-20 py-10 flex flex-col">
