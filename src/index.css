@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* text cursor color change */
+/* text cursor color change
 
 .custom-input::-webkit-input-placeholder {
   color: gray;
@@ -23,6 +23,26 @@
 .custom-input::placeholder {
   color: gray;
 }
+
+.custom-input:focus::-webkit-input-placeholder {
+  color: gray;
+  opacity: 1;
+}
+
+.custom-input:focus::-moz-placeholder {
+  color: gray;
+  opacity: 1;
+}
+
+.custom-input:focus:-ms-input-placeholder {
+  color: gray;
+  opacity: 1;
+}
+
+.custom-input:focus::-ms-input-placeholder {
+  color: gray;
+  opacity: 1;
+} */
 
 .custom-input:focus::-webkit-input-placeholder {
   color: gray;
