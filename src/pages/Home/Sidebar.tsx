@@ -13,11 +13,10 @@ import uuid from 'react-uuid';
 import { setLists } from '../../store/listSlice';
 import { setChosenList } from '../../store/chosenListSlice';
 import { IList, getInitialTheme } from '../../utils';
-
-import toast from 'react-hot-toast';
 import { ToggleSlider } from 'react-toggle-slider';
 import { setTheme } from '../../store/themeSlice';
 import List from './List';
+import { showToastError, showToastSuccess } from '../../utils/toast';
 
 function Sidebar() {
   const lists = useAppSelector((state) => state.list);
@@ -69,11 +68,11 @@ function Sidebar() {
         setText('');
         setRing('black');
         setIsNewList(false);
-        toast.success('Succesfully created new list');
+        showToastSuccess('Succesfully created new list', theme);
       } else {
         setRing('black');
         setIsNewList(false);
-        toast.error('List already exists');
+        showToastError('List already exists', theme);
         return;
       }
     }
