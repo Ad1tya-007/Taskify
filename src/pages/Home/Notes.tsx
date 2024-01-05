@@ -51,7 +51,6 @@ function Notes() {
       ];
       dispatch(setTasks(updatedTasks));
       setText('');
-      setType('Home');
       setIsClicked(false);
       showToastSuccess('Successfully created new task', theme);
     }
