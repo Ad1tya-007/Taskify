@@ -55,19 +55,28 @@ function Sidebar() {
       });
     }
     if (event.key == 'Enter') {
-      const updatedList = [
-        ...lists,
-        {
-          id: uuid(),
-          name: text,
-          color: ring,
-        },
-      ];
-      dispatch(setLists(updatedList));
-      setText('');
-      setRing('black');
-      setIsNewList(false);
-      toast.success('Succesfully created new list');
+      const check = lists.filter((list) => list.name === text);
+      console.log('🚀 ~ file: Sidebar.tsx:59 ~ handleKeyDown ~ check:', check);
+      if (check.length == 0) {
+        const updatedList = [
+          ...lists,
+          {
+            id: uuid(),
+            name: text,
+            color: ring,
+          },
+        ];
+        dispatch(setLists(updatedList));
+        setText('');
+        setRing('black');
+        setIsNewList(false);
+        toast.success('Succesfully created new list');
+      } else {
+        setRing('black');
+        setIsNewList(false);
+        toast.error('List already exists');
+        return;
+      }
     }
   };
 
